@@ -1,0 +1,82 @@
+[INFO ] 2016-04-01 19:57:33,027 com.dataStore.main.Node.class main Logging is succesfully initialized! Refer log file CS525.log
+[INFO ] 2016-04-01 19:57:33,096 com.dataStore.main.Node.class main No such file
+[ERROR] 2016-04-01 19:57:33,112 com.dataStore.main.Node.class main java.io.IOException: Cannot run program "bash": CreateProcess error=2, The system cannot find the file specified
+[INFO ] 2016-04-01 19:57:38,812 com.dataStore.main.Node.class main Machine IP: 172.17.39.58 and Machine ID: 172.17.39.58:1459558658812
+[INFO ] 2016-04-01 19:57:38,812 com.dataStore.main.Node.class main Adding it's entry in the Gossip list!
+[INFO ] 2016-04-01 19:57:38,812 com.dataStore.main.Node.class main Checking for the introducer.
+[INFO ] 2016-04-01 19:57:38,897 com.dataStore.main.Node.class main Exiting from the method checkIntroducer.
+[INFO ] 2016-04-01 19:57:38,897 com.dataStore.gossip.FileListListenerThread.class Thread-0 FileListListenerThread is activated! Listening ....
+[INFO ] 2016-04-01 19:57:38,897 com.dataStore.election.ElectionListenerThread.class Thread-2 ElectionListenerThread initialzing....
+[INFO ] 2016-04-01 19:57:38,897 com.dataStore.requestHandler.ReqListener.class Thread-3 Request listener is up! 
+[INFO ] 2016-04-01 19:57:38,897 com.dataStore.fileTransfer.FileReceiver.class Thread-4 File Receiver is up! 
+[INFO ] 2016-04-01 19:57:38,913 com.dataStore.fileTransfer.FileReceiver.class Thread-4  FileReceiver socket established, listening at port: 3002
+[INFO ] 2016-04-01 19:57:38,913 com.dataStore.requestHandler.ReqListener.class Thread-3  Req Listener socket established, listening at port: 3001
+[INFO ] 2016-04-01 19:57:38,915 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558658915 || heartbeat: 2 || status: true
+[INFO ] 2016-04-01 19:57:39,429 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558659429 || heartbeat: 3 || status: true
+[INFO ] 2016-04-01 19:57:39,921 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558659921 || heartbeat: 4 || status: true
+[INFO ] 2016-04-01 19:57:40,428 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558660428 || heartbeat: 5 || status: true
+[INFO ] 2016-04-01 19:57:40,923 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558660923 || heartbeat: 6 || status: true
+[INFO ] 2016-04-01 19:57:41,429 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558661429 || heartbeat: 7 || status: true
+[INFO ] 2016-04-01 19:57:41,930 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558661930 || heartbeat: 8 || status: true
+[INFO ] 2016-04-01 19:57:42,419 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558662419 || heartbeat: 9 || status: true
+[INFO ] 2016-04-01 19:57:42,920 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558662920 || heartbeat: 10 || status: true
+[INFO ] 2016-04-01 19:57:43,420 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558663420 || heartbeat: 11 || status: true
+[INFO ] 2016-04-01 19:57:43,920 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558663920 || heartbeat: 12 || status: true
+[INFO ] 2016-04-01 19:57:44,422 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558664422 || heartbeat: 13 || status: true
+[INFO ] 2016-04-01 19:57:44,923 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558664923 || heartbeat: 14 || status: true
+[INFO ] 2016-04-01 19:57:45,424 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558665424 || heartbeat: 15 || status: true
+[INFO ] 2016-04-01 19:57:45,929 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558665929 || heartbeat: 16 || status: true
+[INFO ] 2016-04-01 19:57:46,429 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558666429 || heartbeat: 17 || status: true
+[INFO ] 2016-04-01 19:57:46,929 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558666929 || heartbeat: 18 || status: true
+[INFO ] 2016-04-01 19:57:47,425 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558667425 || heartbeat: 19 || status: true
+[INFO ] 2016-04-01 19:57:47,930 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558667930 || heartbeat: 20 || status: true
+[INFO ] 2016-04-01 19:57:48,430 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558668430 || heartbeat: 21 || status: true
+[INFO ] 2016-04-01 19:57:48,930 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558668930 || heartbeat: 22 || status: true
+[INFO ] 2016-04-01 19:57:49,423 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558669423 || heartbeat: 23 || status: true
+[INFO ] 2016-04-01 19:57:49,931 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558669931 || heartbeat: 24 || status: true
+[INFO ] 2016-04-01 19:57:50,429 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558670429 || heartbeat: 25 || status: true
+[INFO ] 2016-04-01 19:57:50,932 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558670932 || heartbeat: 26 || status: true
+[INFO ] 2016-04-01 19:57:51,432 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558671432 || heartbeat: 27 || status: true
+[INFO ] 2016-04-01 19:57:51,932 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558671932 || heartbeat: 28 || status: true
+[INFO ] 2016-04-01 19:57:52,433 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558672433 || heartbeat: 29 || status: true
+[INFO ] 2016-04-01 19:57:52,930 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558658812 || time stamp: 1459558672930 || heartbeat: 30 || status: true
+[INFO ] 2016-04-01 19:59:02,794 com.dataStore.main.Node.class main Logging is succesfully initialized! Refer log file CS525.log
+[INFO ] 2016-04-01 19:59:02,832 com.dataStore.main.Node.class main No such file
+[ERROR] 2016-04-01 19:59:02,832 com.dataStore.main.Node.class main java.io.IOException: Cannot run program "bash": CreateProcess error=2, The system cannot find the file specified
+[INFO ] 2016-04-01 19:59:07,979 com.dataStore.main.Node.class main Machine IP: 172.17.39.58 and Machine ID: 172.17.39.58:1459558747978
+[INFO ] 2016-04-01 19:59:07,979 com.dataStore.main.Node.class main Adding it's entry in the Gossip list!
+[INFO ] 2016-04-01 19:59:37,239 com.dataStore.main.Node.class main Logging is succesfully initialized! Refer log file CS525.log
+[INFO ] 2016-04-01 19:59:37,277 com.dataStore.main.Node.class main No such file
+[ERROR] 2016-04-01 19:59:37,277 com.dataStore.main.Node.class main java.io.IOException: Cannot run program "bash": CreateProcess error=2, The system cannot find the file specified
+[INFO ] 2016-04-01 19:59:48,694 com.dataStore.main.Node.class main Logging is succesfully initialized! Refer log file CS525.log
+[INFO ] 2016-04-01 19:59:48,725 com.dataStore.main.Node.class main No such file
+[ERROR] 2016-04-01 19:59:48,725 com.dataStore.main.Node.class main java.io.IOException: Cannot run program "bash": CreateProcess error=2, The system cannot find the file specified
+[INFO ] 2016-04-01 19:59:51,027 com.dataStore.main.Node.class main Machine IP: 172.17.39.58 and Machine ID: 172.17.39.58:1459558791026
+[INFO ] 2016-04-01 19:59:51,027 com.dataStore.main.Node.class main Adding it's entry in the Gossip list!
+[INFO ] 2016-04-01 20:00:03,269 com.dataStore.main.Node.class main Checking for the introducer.
+[INFO ] 2016-04-01 20:00:03,269 com.dataStore.main.Node.class main Exiting from the method checkIntroducer.
+[INFO ] 2016-04-01 20:00:05,290 com.dataStore.gossip.FileListListenerThread.class Thread-0 FileListListenerThread is activated! Listening ....
+[INFO ] 2016-04-01 20:00:05,312 com.dataStore.election.ElectionListenerThread.class Thread-2 ElectionListenerThread initialzing....
+[INFO ] 2016-04-01 20:00:05,312 com.dataStore.fileTransfer.FileReceiver.class Thread-4 File Receiver is up! 
+[INFO ] 2016-04-01 20:00:05,312 com.dataStore.requestHandler.ReqListener.class Thread-3 Request listener is up! 
+[INFO ] 2016-04-01 20:00:05,312 com.dataStore.fileTransfer.FileReceiver.class Thread-4  FileReceiver socket established, listening at port: 3002
+[INFO ] 2016-04-01 20:00:05,326 com.dataStore.requestHandler.ReqListener.class Thread-3  Req Listener socket established, listening at port: 3001
+[INFO ] 2016-04-01 20:00:05,326 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558805326 || heartbeat: 2 || status: true
+[INFO ] 2016-04-01 20:00:05,829 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558805829 || heartbeat: 3 || status: true
+[INFO ] 2016-04-01 20:00:06,334 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558806334 || heartbeat: 4 || status: true
+[INFO ] 2016-04-01 20:00:06,823 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558806823 || heartbeat: 5 || status: true
+[INFO ] 2016-04-01 20:00:07,328 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558807328 || heartbeat: 6 || status: true
+[INFO ] 2016-04-01 20:00:07,829 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558807829 || heartbeat: 7 || status: true
+[INFO ] 2016-04-01 20:00:08,329 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558808329 || heartbeat: 8 || status: true
+[INFO ] 2016-04-01 20:00:08,781 com.dataStore.main.Node.class main User want to list the current members
+[INFO ] 2016-04-01 20:00:08,781 com.dataStore.main.Node.class main *********MachineId********	||	**Last Seen**	||	Hearbeat	||	Is Active?	||	PID	||	Is leader?
+[INFO ] 2016-04-01 20:00:08,781 com.dataStore.main.Node.class main 172.17.39.58:1459558791026	||	1459558808329	||	8		||	true		||	1	||	false
+[INFO ] 2016-04-01 20:00:08,831 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-1 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558808831 || heartbeat: 9 || status: true
+[INFO ] 2016-04-01 20:00:09,337 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558809337 || heartbeat: 10 || status: true
+[INFO ] 2016-04-01 20:00:09,830 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558809830 || heartbeat: 11 || status: true
+[INFO ] 2016-04-01 20:00:10,323 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-2 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558810323 || heartbeat: 12 || status: true
+[INFO ] 2016-04-01 20:00:10,835 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558810835 || heartbeat: 13 || status: true
+[INFO ] 2016-04-01 20:00:11,337 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558811337 || heartbeat: 14 || status: true
+[INFO ] 2016-04-01 20:00:11,831 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558811831 || heartbeat: 15 || status: true
+[INFO ] 2016-04-01 20:00:12,333 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-3 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558812333 || heartbeat: 16 || status: true
+[INFO ] 2016-04-01 20:00:12,836 com.dataStore.gossip.GossipSenderThread.class pool-1-thread-4 packet info: id 172.17.39.58:1459558791026 || time stamp: 1459558812836 || heartbeat: 17 || status: true
