@@ -64,22 +64,24 @@ public class ReqListnerTorrent extends Thread {
 			// need to
 			// handle the requests well.
 			String words[] = clientCommand.split(":");
-
-			Set<String> ipSet = null;
 			// its not a file operation. Mostly this request is for leader.
 			if (words[0].equalsIgnoreCase("get")) {
-				if (!Node._torrentFileMap.containsKey(words[1])) {
-					pw.println("NA");
-				} else {
-					FileData fileObject = Node._torrentFileMap.get(words[1]);
-					String fileName = fileObject.getFileName();
-					if (fileObject.isTorrentCreated()) {
-						// send torrent file
-						
-					} else {
-						// create torrent and send torrent file
-					}
-					String fullFilePath = Node.localFilePath+fileName+".torrent";
+//				if (!Node._torrentFileMap.containsKey(words[1])) {
+//					pw.println("NA");
+//				} else {
+//					FileData fileObject = Node._torrentFileMap.get(words[1]);
+//					String fileName = fileObject.getFileName();
+//					if (fileObject.isTorrentCreated()) {
+//						// send torrent file
+//						
+//					} else {
+//						// create torrent and send torrent file
+//					}
+				
+				// Testing hardcoded file value
+				//	String fullFilePath = Node.localFilePath+fileName+".torrent";
+					String fileName = "index.html.torrent";
+					String fullFilePath = "/home/abhard6/bitTorrentTestFolder/" + fileName;
 					//BufferedReader bufRead = null;
 					try 
 					{
@@ -119,7 +121,7 @@ public class ReqListnerTorrent extends Thread {
 						//e.printStackTrace();
 					}
 				}
-			}
+//			}
 			pw.close();
 			reader.close();
 			writer.close();

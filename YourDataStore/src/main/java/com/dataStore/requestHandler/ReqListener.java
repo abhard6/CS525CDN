@@ -2,6 +2,7 @@ package com.dataStore.requestHandler;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import com.BitTorrent.ReqListnerTorrent;
 import com.dataStore.main.Node;
 
 import org.apache.log4j.Logger;
@@ -44,9 +45,17 @@ public class ReqListener extends Thread
 				log.info(" Req Listener socket established, listening at port: "+port);
 			}
 
+			//Original Code
+//			while (!Node._reqListenerThreadStop) 
+//			{
+//				new ReqListenerInstance(serverSocketListener.accept()).start();
+//				log.info("Listening new Req");
+//			}
+			
+			//Torrent request listner
 			while (!Node._reqListenerThreadStop) 
 			{
-				new ReqListenerInstance(serverSocketListener.accept()).start();
+				new ReqListnerTorrent(serverSocketListener.accept()).start();
 				log.info("Listening new Req");
 			}
 		}
