@@ -7,6 +7,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.dataStore.main.Node;
 
@@ -35,7 +36,7 @@ public class IntroducerRejoinThread extends Thread
 	public void run()
 	{
 		boolean itroducerAlive = false;
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+		for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 		{
 			String nodeId = record.getKey();
 			if(nodeId.startsWith(Node._introducerIp))
@@ -62,7 +63,7 @@ public class IntroducerRejoinThread extends Thread
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ObjectOutputStream objOpStream = new ObjectOutputStream(byteArrayOutputStream);
 			HashMap<String, NodeData> map = new HashMap<String, NodeData>();
-			for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+			for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 			{
 				map.put(record.getKey(), record.getValue());
 			}

@@ -1,5 +1,6 @@
 package com.dataStore.scheduler;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class LeaderScanThread extends Thread
 		{
 			//_logger.info("ListScanThread is activated! Listening started");
 
-			for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+			for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 			{
 				if(record.getValue().isLeader())
 				{

@@ -1,6 +1,5 @@
 package com.dataStore.main;
 
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +17,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -34,6 +35,7 @@ import com.dataStore.requestHandler.ReqListener;
 import com.dataStore.requestHandler.ReqSender;
 import com.dataStore.scheduler.LeaderScanThread;
 import com.dataStore.scheduler.ListScanThread;
+import com.dataStore.data.FileData;
 import com.dataStore.data.NodeData;
 import com.dataStore.election.ElectionListenerThread;
 import com.dataStore.fileTransfer.FileReceiver;
@@ -86,18 +88,19 @@ public class Node
 	//public static List<NodeData> _gossipList = Collections.synchronizedList(new ArrayList<NodeData>());
 	// Thread safe data structure needed to store the details of all the machines in the 
 	// Gossip group. Concurrent hashmap is our best option as it can store string, nodeData. 
-	public static ConcurrentHashMap<String, NodeData> _gossipMap = new ConcurrentHashMap<String, NodeData>();
+	public static Map<String, NodeData> _gossipMap = new ConcurrentHashMap<String, NodeData>();
 	
 	// a new HashMap for storing the file list. This map can be accessed by different threads so it better to use concurrent hashmap
-	public static ConcurrentHashMap<String, List<String>> _fileMap = new ConcurrentHashMap<String, List<String>>();
+	public static Map<String, List<String>> _fileMap = new ConcurrentHashMap<String, List<String>>();
+	public static Map<String, FileData> _torrentFileMap = new ConcurrentHashMap<String, FileData>();
 	
 	// another Hash Map for Replicate copy
-	public static ConcurrentHashMap<String, List<String>> _fileReplicaMap = new ConcurrentHashMap<String, List<String>>();
+	public static Map<String, List<String>> _fileReplicaMap = new ConcurrentHashMap<String, List<String>>();
 	// detect whether we have the leader, if not, may wanna keep above hash map, else, clean up the has map cause job has been done by leader
 	public static boolean _hasLeader = false;
 
-	public final static String localFilePath = "/home/pshrvst2/local/";
-	public final static String sdfsFilePath = "/home/pshrvst2/sdfs/";
+	public final static String localFilePath = "/home/abhard6/Desktop/local/";
+	public final static String sdfsFilePath = "/home/abhard6/Desktop/sdfs/";
 	
 	//final static String localFilePath = "/home/xchen135/local/";
     //final static String sdfsFilePath = "/home/xchen135/sdfs/";
@@ -126,7 +129,8 @@ public class Node
 			
 			// no matter what, just delete your SDFS when you join.
 			deleteSDFS();
-			
+			long space =0;
+			int bandwidth = 0;;
 			boolean flag = true;
 			while(flag)
 			{
@@ -136,8 +140,17 @@ public class Node
 				System.out.println("\t!!Press any other key to shoot you!!");
 				BufferedReader readerKeyboard = new BufferedReader(new InputStreamReader(System.in));
 				String option = readerKeyboard.readLine();
-				if(option.equalsIgnoreCase("1"))
-					flag = false;
+
+				if(option.equalsIgnoreCase("1")){
+					
+//					Scanner input = new Scanner(System.in);
+					System.out.println("Enter the Space you want to give");
+					space = Long.valueOf(readerKeyboard.readLine());
+					System.out.println("Enter the Bandwidth speed you have");
+					bandwidth = Integer.valueOf(readerKeyboard.readLine());
+					flag = false;	
+				}
+					
 				else if (option.equalsIgnoreCase("2"))
 				{
 					System.out.println("\tYou are at machine: "+_machineIp);
@@ -156,10 +169,10 @@ public class Node
 			_logger.info("Machine IP: "+_machineIp+" and Machine ID: "+_machineId);
 			_logger.info("Adding it's entry in the Gossip list!");
 			//System.out.println(machineId);
-			NodeData node = new NodeData(_machineId, 1, currTimeInMiliSec, true);
+			NodeData node = new NodeData(_machineId, 1l, currTimeInMiliSec, true,space,bandwidth,checkSuperNode(space, bandwidth));
 			_gossipMap.put(_machineId, node);
 			//_gossipList.add(node);
-			
+			_logger.info("Attrributes for created Nodes are {}" + node.getSpace() + node.getBandwidth());
 			//check systems properties and load them
 			if(!loadSystemProperties())
 			{
@@ -232,7 +245,7 @@ public class Node
 						System.out.println("*********MachineId********"+delim+"**Last Seen**"+delim+"Hearbeat"+delim+"Is Active?"+delim+"PID"+delim+"Is leader?");
 						_logger.info("User want to list the current members");
 						_logger.info("*********MachineId********"+delim+"**Last Seen**"+delim+"Hearbeat"+delim+"Is Active?"+delim+"PID"+delim+"Is leader?");
-						for (HashMap.Entry<String, NodeData> record : _gossipMap.entrySet())
+						for (Map.Entry<String, NodeData> record : _gossipMap.entrySet())
 						{
 							NodeData temp = record.getValue();
 							System.out.println(record.getKey()
@@ -267,6 +280,7 @@ public class Node
 						
 						//check for the file at local
 						File file = new File(localFilePath+command[1]);
+						// create torrent 
 						if(file.exists())
 						{
 							String serverip = null;
@@ -341,7 +355,7 @@ public class Node
 					System.out.println("*********File Name********"+delim+"**Address 1**"+delim+"Address 2"+delim+"Address 3");
 					_logger.info("User want to list the files");
 					_logger.info("*********File Name********"+delim+"**Address 1**"+delim+"Address 2"+delim+"Address 3");
-					for (HashMap.Entry<String, List<String>> record : _fileMap.entrySet())
+					for (Map.Entry<String, List<String>> record : _fileMap.entrySet())
 					{
 						List<String> temp = record.getValue();
 						if(temp.size()==3)
@@ -428,6 +442,23 @@ public class Node
 
 	}
 	
+	
+	
+	public static boolean checkSuperNode(long space,int bandwidth){
+		
+		if(space >= 50 && bandwidth == 1000){
+			
+			return true;
+		}
+		else{
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
 	private static boolean loadSystemProperties() 
 	{
 		boolean flag = true;
@@ -506,7 +537,7 @@ public class Node
 	{
 		List<String> idList = new ArrayList<String>();
 		int ownPid = _gossipMap.get(id).getPid();
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+		for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 		{
 			if (record.getValue().getPid()< ownPid)
 			{
@@ -536,7 +567,7 @@ public class Node
 			    ObjectOutputStream objOpStream = new ObjectOutputStream(byteArrayOutputStream);
 			    //objOpStream.writeObject(_gossipList);
 			    HashMap<String, NodeData> map = new HashMap<String, NodeData>();
-			    for (HashMap.Entry<String, NodeData> record : _gossipMap.entrySet())
+			    for (Map.Entry<String, NodeData> record : _gossipMap.entrySet())
 				{
 			    	map.put(record.getKey(), record.getValue());
 				}
@@ -585,7 +616,7 @@ public class Node
 	public static String getLeadId()
 	{
 		String leadId = null;
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+		for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 		{
 			if (record.getValue().isLeader() == true)
 			{
@@ -599,7 +630,7 @@ public class Node
 	public static String getLeadIp()
 	{
 		String leadIp = null;
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+		for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 		{
 			if (record.getValue().isLeader() == true)
 			{

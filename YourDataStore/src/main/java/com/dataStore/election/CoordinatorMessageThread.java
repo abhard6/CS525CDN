@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.HashMap;
+import java.util.Map;
 
 import com.dataStore.main.Node;
 
@@ -31,8 +31,11 @@ public class CoordinatorMessageThread extends Thread
 	public void run()
 	{
 		_logger.info("CoordinatorMessageThread initialzing....");
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
-		{
+		
+		for( Map.Entry<String, NodeData> record : Node._gossipMap.entrySet()){
+		
+//		for (Map.Entry<String,NodeData> record : Node._gossipMap.entrySet())
+		
 			//TODO should reconsider this 
 			// initial design, includes itself and update the isleader only through the listner
 			String ip = record.getKey().substring(0, record.getKey().indexOf(":"));

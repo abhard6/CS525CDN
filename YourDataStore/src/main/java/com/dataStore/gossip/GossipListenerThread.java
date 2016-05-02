@@ -7,6 +7,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.dataStore.main.Node;
 
@@ -60,7 +61,7 @@ public class GossipListenerThread extends Thread
 					HashMap<String, NodeData> map = (HashMap<String, NodeData>) objInpStream.readObject();
 
 
-					for (HashMap.Entry<String, NodeData> record : map.entrySet())
+					for (Map.Entry<String, NodeData> record : map.entrySet())
 					{
 
 						String machineId = record.getKey().trim();
@@ -128,7 +129,7 @@ public class GossipListenerThread extends Thread
 					if(Node._isIntroducer)
 					{
 						int temp = 0;
-						for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+						for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 						{
 							if(record.getValue().getPid()>temp)
 							{

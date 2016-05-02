@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.dataStore.main.Node;
@@ -47,7 +48,7 @@ public class GossipSenderThread extends Thread
 			updateHearbeatAndTimeStamp();
 			// check if there's any member in the member list beside itself
 			HashMap<String, NodeData> map = new HashMap<String, NodeData>();
-			for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet()) 
+			for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet()) 
 			{
 				map.put(record.getKey(), record.getValue());
 				_logger.info("packet info: id " + record.getValue().getNodeId()
@@ -103,7 +104,7 @@ public class GossipSenderThread extends Thread
 			// retrieve the ip list from membership list
 			String[] retVal = new String[len];
 			int i = 0;
-			for (HashMap.Entry<String, NodeData> rec : gossipMap.entrySet()) 
+			for (Map.Entry<String, NodeData> rec : gossipMap.entrySet()) 
 			{
 				String machinId = rec.getKey();
 				String[] temp = machinId.split(":");

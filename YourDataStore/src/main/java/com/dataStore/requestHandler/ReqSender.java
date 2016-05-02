@@ -15,6 +15,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.dataStore.main.Node;
 
@@ -57,6 +58,9 @@ public class ReqSender extends Thread
 		PrintWriter pw = null;
 		BufferedReader serverReader = null;
 		Socket socket;
+		int filecount = 0;
+		
+
 		
 		if(userCommand.equalsIgnoreCase("put"))
 		{
@@ -256,7 +260,7 @@ public class ReqSender extends Thread
 						//{
 							Socket fileDeleteSocket = new Socket(ip, serverPort);
 							PrintWriter filePw = new PrintWriter(fileDeleteSocket.getOutputStream(), true);
-							filePw.println("begin:"+userCommand+":"+fileName);
+							filePw.println("begin:"+userCommand+":"+fileName); //sending message for file delete
 							BufferedReader bufReader = new BufferedReader(new InputStreamReader(fileDeleteSocket.getInputStream()));
 							String ack = "";
 							while((line = bufReader.readLine()) != null)
@@ -464,7 +468,7 @@ public class ReqSender extends Thread
 	
 	public void updateFileListAfterReplica(String filename, String ipDelete, String ipNew)
 	{
-		for (HashMap.Entry<String, List<String>> record : Node._fileMap.entrySet()) 
+		for (Map.Entry<String, List<String>> record : Node._fileMap.entrySet()) 
 		{
 			if(record.getKey().equals(filename))
 			{

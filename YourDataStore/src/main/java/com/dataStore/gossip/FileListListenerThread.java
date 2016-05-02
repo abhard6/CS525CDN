@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.dataStore.main.Node;
@@ -65,7 +66,7 @@ public class FileListListenerThread extends Thread{
 					HashMap<String, List<String>> map = (HashMap<String, List<String>>) objInpStream.readObject();
 
 					// check the message counts and see whether your file list is up to date
-					for (HashMap.Entry<String, List<String>> record : map.entrySet())
+					for (Map.Entry<String, List<String>> record : map.entrySet())
 					{
 						String fileName = record.getKey().trim();
 						_logger.info("******Received entries for file name = "+fileName+"****************");
@@ -89,7 +90,7 @@ public class FileListListenerThread extends Thread{
 						_logger.info("FileListListenerThread: the file list got updated with counts:" + Node._fileMsgCounter);
 						Node._fileMap.clear();
 						
-						for (HashMap.Entry<String, List<String>> record : map.entrySet())
+						for (Map.Entry<String, List<String>> record : map.entrySet())
 						{				
 							Node._fileMap.put(record.getKey(),record.getValue());		
 						}

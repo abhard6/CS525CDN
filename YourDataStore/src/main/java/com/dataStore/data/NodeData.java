@@ -18,7 +18,35 @@ public class NodeData implements Serializable
 	private int electionCounts = 0;
 	private int okMessageCounts = 0;
 	private boolean isLeader = false;
+	private boolean isSuperNode = false;
+	private long space = 0l; //space should be in MB
+	private int bandwidth = 0; //it should be in KB per second
 	
+	public boolean isSuperNode() {
+		return isSuperNode;
+	}
+
+	public void setSuperNode(boolean isSuperNode) {
+		this.isSuperNode = isSuperNode;
+	}
+
+	public long getSpace() {
+		return space;
+	}
+
+	public void setSpace(long space) {
+		this.space = space;
+	}
+	
+	
+	public int getBandwidth() {
+		return bandwidth;
+	}
+
+	public void setBandwidth(int bandwidth) {
+		this.bandwidth = bandwidth;
+	}
+
 	public NodeData() 
 	{
 		super();
@@ -49,6 +77,19 @@ public class NodeData implements Serializable
 		this.lastRecordedTime = lastRecordedTime;
 		this.isActive = isActive;
 		this.pid = pid;
+	}
+	
+	
+	public NodeData(String nodeId, long heartBeat, long lastRecordedTime,
+			boolean isActive, long space, int bandwidth,boolean isSuperNode) 
+	{
+		this.nodeId = nodeId;
+		this.heartBeat = heartBeat;
+		this.lastRecordedTime = lastRecordedTime;
+		this.isActive = isActive;
+		this.space = space;
+		this.bandwidth = bandwidth;
+		this.isSuperNode = isSuperNode;
 	}
 	
 	public String getNodeId() {
@@ -121,4 +162,5 @@ public class NodeData implements Serializable
 	{
 		this.isLeader = l;
 	}
+	
 }

@@ -1,6 +1,6 @@
 package com.dataStore.requestHandler;
 import com.dataStore.gossip.FileListSenderThread;
-
+import java.util.Map;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -380,7 +380,7 @@ public class ReqListenerInstance extends Thread
 			// retrieve the ip list from membership list
 			String[] retVal = new String[len];
 			int i = 0;
-			for (HashMap.Entry<String, NodeData> rec : gossipMap.entrySet()) 
+			for (Map.Entry<String, NodeData> rec : gossipMap.entrySet()) 
 			{
 				String id = rec.getKey();
 				String[] temp = id.split(":");

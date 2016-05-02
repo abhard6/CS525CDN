@@ -1,5 +1,6 @@
 package com.dataStore.scheduler;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ListScanThread extends Thread {
 				if(!Node._fileReplicaMap.isEmpty())
 				{
 					
-					for (HashMap.Entry<String, List<String>> r : Node._fileReplicaMap.entrySet())
+					for (Map.Entry<String, List<String>> r : Node._fileReplicaMap.entrySet())
 					{
 						// the form here is (ipDeleted, ipOLd, ipNew)
 						String comnd = "trans:"+r.getValue().get(1)+":"+r.getValue().get(2)+":"+r.getValue().get(0);
@@ -65,7 +66,7 @@ public class ListScanThread extends Thread {
 		}
 		
 		//_logger.info("ListScanThread is activated! Listening started");
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet())
+		for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet())
 		{
 			String nodeId = record.getKey();				
 			if(!nodeId.equalsIgnoreCase(Node._machineId))
@@ -85,7 +86,7 @@ public class ListScanThread extends Thread {
 						if(Node._gossipMap.size()>=3)
 						{
 							HashMap<String, List<String>> newMap = getReplicaMap(nodeId.substring(0, nodeId.indexOf(":")));
-							for (HashMap.Entry<String, List<String>> r : newMap.entrySet())
+							for (Map.Entry<String, List<String>> r : newMap.entrySet())
 							{							
 								// the form here is (ipDeleted, ipOLd, ipNew)
 								String comnd = "trans:"+r.getValue().get(1)+":"+r.getValue().get(2)+":"+r.getValue().get(0);
@@ -110,7 +111,7 @@ public class ListScanThread extends Thread {
 						if(Node._gossipMap.size()>=3)
 						{
 							HashMap<String, List<String>> newMap = getReplicaMap(nodeId.substring(0, nodeId.indexOf(":")));
-							for (HashMap.Entry<String, List<String>> r : newMap.entrySet())
+							for (Map.Entry<String, List<String>> r : newMap.entrySet())
 							{
 								Node._fileReplicaMap.put(r.getKey(), r.getValue());
 							}
@@ -144,7 +145,7 @@ public class ListScanThread extends Thread {
 	{
 		HashMap<String, List<String>> map = new HashMap<String, List<String>>();
 		
-		for (HashMap.Entry<String, List<String>> record : Node._fileMap.entrySet()) 
+		for (Map.Entry<String, List<String>> record : Node._fileMap.entrySet()) 
 		{
 			 // check if the file store in this ip address
 			 if(record.getValue().contains(ip))
@@ -180,7 +181,7 @@ public class ListScanThread extends Thread {
 	{
 		String newIp = null;
 		
-		for (HashMap.Entry<String, NodeData> record : Node._gossipMap.entrySet()) 
+		for (Map.Entry<String, NodeData> record : Node._gossipMap.entrySet()) 
 		{
 			// check if the ip inside the list, if not use this as a new ip
 			if (!existIpList.contains(record.getKey().substring(0, record.getKey().indexOf(":"))))

@@ -1,5 +1,6 @@
 package com.dataStore.gossip;
 import java.io.ByteArrayOutputStream;
+import java.util.Map;
 import java.io.EOFException;
 import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
@@ -77,7 +78,7 @@ public class FileListSenderThread extends Thread
 			}
 
 			HashMap<String, List<String>> map = new HashMap<String, List<String>>();
-			for(HashMap.Entry<String, List<String>> record: Node._fileMap.entrySet())
+			for(Map.Entry<String, List<String>> record: Node._fileMap.entrySet())
 			{
 				map.put(record.getKey(), record.getValue());
 				if(record.getValue().size()==3)
@@ -135,7 +136,7 @@ public class FileListSenderThread extends Thread
 			// retrieve the ip list from membership list
 			String[] retVal = new String[len];
 			int i = 0;
-			for (HashMap.Entry<String, NodeData> rec : gossipMap.entrySet()) 
+			for (Map.Entry<String, NodeData> rec : gossipMap.entrySet()) 
 			{
 				String id = rec.getKey();
 				String[] temp = id.split(":");
@@ -189,7 +190,7 @@ public class FileListSenderThread extends Thread
 		int len = gossipMap.size() - 1;
 		if (len != 0) 
 		{
-			for (HashMap.Entry<String, NodeData> rec : gossipMap.entrySet()) 
+			for (Map.Entry<String, NodeData> rec : gossipMap.entrySet()) 
 			{
 				String id = rec.getKey();
 				if (id!= leadId ) 
