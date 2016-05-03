@@ -1,33 +1,26 @@
-package com.dataStore.requestHandler;
+package com.BitTorrentRequestHandler;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
-
-import com.dataStore.main.Node;
-
 import org.apache.log4j.Logger;
 
-/**
- * 
- */
+import com.BitTorrent.*;
+import com.dataStore.main.Node;
+import com.dataStore.requestHandler.ReqListener;
 
-/**
- * @author pshrvst2
- *
- */
-public class ReqListener extends Thread 
-{
+public class ReqListnerTorrent extends Thread{
 	private static Logger log = Logger.getLogger(ReqListener.class);
 	private final int port;
 	
-	public ReqListener(int port)
+	public ReqListnerTorrent(int port)
 	{
 		this.port = port;
 	}
 	
 	public void run()
 	{
-		log.info("Request listener is up! ");
+		log.info("Request listener Torrent is up! ");
 		ServerSocket serverSocketListener = null;
 		try 
 		{
@@ -41,18 +34,16 @@ public class ReqListener extends Thread
 			} 
 			else 
 			{
-				System.out.println(" Req Listener socket established, listening at port: "+port);
-				log.info(" Req Listener socket established, listening at port: "+port);
+				System.out.println(" Request Torrent Listner up and running, listening at port: "+port);
+				log.info("Request Torrent Listner up and running, listening at port: "+port);
 			}
-
-			//Original Code
+			
+			//Torrent request listner
 			while (!Node._reqListenerThreadStop) 
 			{
-				new ReqListenerInstance(serverSocketListener.accept()).start();
+				new TorrentFileListner(serverSocketListener.accept()).start();
 				log.info("Listening new Req");
 			}
-
-
 		}
 		catch (IOException e) 
 		{
@@ -69,5 +60,4 @@ public class ReqListener extends Thread
 			}
 		}
 	}
-
 }

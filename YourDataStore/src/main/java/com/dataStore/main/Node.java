@@ -31,6 +31,8 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
 
+import com.BitTorrentRequestHandler.ReqListnerTorrent;
+import com.BitTorrentRequestHandler.ReqSenderTorrent;
 import com.dataStore.requestHandler.ReqListener;
 import com.dataStore.requestHandler.ReqSender;
 import com.dataStore.scheduler.LeaderScanThread;
@@ -62,6 +64,7 @@ public class Node
 	public final static int _TCPPortForElections = 3000;
 	public final static int _TCPPortForRequests = 3001;
 	public final static int _TCPPortForFileTransfers = 3002;
+	public final static int _TCPPorstForTorrentFileRquest = 4001;
 	public static String _introducerIp = "";
 	public static boolean _gossipListenerThreadStop = false;
 	public static boolean _fileListListenerThreadStop = false;
@@ -99,8 +102,8 @@ public class Node
 	// detect whether we have the leader, if not, may wanna keep above hash map, else, clean up the has map cause job has been done by leader
 	public static boolean _hasLeader = false;
 
-	public final static String localFilePath = "/home/abhard6/Desktop/local/";
-	public final static String sdfsFilePath = "/home/abhard6/Desktop/sdfs/";
+	public final static String localFilePath = "/home/upadhyy3/local/";
+	public final static String sdfsFilePath = "/home/upadhyy3/sdfs/";
 	
 	//final static String localFilePath = "/home/xchen135/local/";
     //final static String sdfsFilePath = "/home/xchen135/sdfs/";
@@ -202,6 +205,9 @@ public class Node
 			Thread fileReceiver = new FileReceiver(_TCPPortForFileTransfers);
 			fileReceiver.start();
 			
+			//open Req Listner for Torrent
+			Thread reqListenerTorrent = new ReqListnerTorrent(_TCPPorstForTorrentFileRquest);
+			reqListenerTorrent.start();
 			
 			// logic to send periodically
 			ScheduledExecutorService _schedulerService = Executors.newScheduledThreadPool(4);
@@ -234,10 +240,34 @@ public class Node
 				System.out.println("Type 'get <filename>' to to get SDFS file to local file system");
 				System.out.println("Type 'delete <filename>' to delete file from SDFS");
 				System.out.println("Type 'store' to show the file list");
+				System.out.println("Type getTorrent '<filename>' to get file from the server");
 				
 				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 				String userCmd = reader.readLine();
-				if(userCmd.equalsIgnoreCase("list"))
+				
+				if(userCmd.equalsIgnoreCase("getTorrent")){
+					String command[] = userCmd.split("\\s");
+					if(command.length != 2)
+					{
+						System.out.println("Enter the command correctly.");
+						_logger.info("Invalid command. Enter the command correctly.");
+					}
+					else
+					{
+						String serverip = null;
+						serverip = getLeadIp();
+						if(serverip != null)
+						{	
+							Thread reqInstance = new ReqSenderTorrent(command[0], command[1], serverip, _TCPPorstForTorrentFileRquest);
+							reqInstance.start();
+						}
+						else
+						{
+							System.out.println("There is no Leader. File can't be obtained for now");
+						}
+					}
+				}
+				else if(userCmd.equalsIgnoreCase("list"))
 				{
 					if(!_gossipMap.isEmpty())
 					{

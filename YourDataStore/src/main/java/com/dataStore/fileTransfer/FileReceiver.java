@@ -5,7 +5,7 @@ package com.dataStore.fileTransfer;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-import com.BitTorrent.TorrentFileListner;
+import com.BitTorrentRequestHandler.TorrentFileListner;
 import com.dataStore.main.Node;
 
 import org.apache.log4j.Logger;
@@ -43,22 +43,23 @@ public class FileReceiver extends Thread
 				log.info(" FileReceiver socket established, listening at port: "+port);
 			}
 
-//			while (!Node._fileReceiverThreadStop) 
-//			{
-//				new FileReceiverInstance(serverSocketListener.accept()).start();
-//				log.info("Receiving a new file");
-//			}
-			
 			while (!Node._fileReceiverThreadStop) 
 			{
-				new TorrentFileListner(serverSocketListener.accept()).start();
+				new FileReceiverInstance(serverSocketListener.accept()).start();
 				log.info("Receiving a new file");
 			}
+			
+//			while (!Node._fileReceiverThreadStop) 
+//			{
+//				log.info("Entered the while loop in the FileReceiver Thread will call TorrentFileListner");
+//				new TorrentFileListner(serverSocketListener.accept()).start();
+//				log.info("Receiving a new file");
+//			}
 		}
 		catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -66,7 +67,7 @@ public class FileReceiver extends Thread
 				serverSocketListener.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 	}

@@ -58,7 +58,6 @@ public class ReqSender extends Thread
 		PrintWriter pw = null;
 		BufferedReader serverReader = null;
 		Socket socket;
-		int filecount = 0;
 		
 
 		

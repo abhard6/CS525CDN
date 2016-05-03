@@ -1,4 +1,4 @@
-package com.BitTorrent;
+package com.BitTorrentRequestHandler;
 
 
 import java.io.DataInputStream;
@@ -27,7 +27,7 @@ public class TorrentFileListner extends Thread
 	
 	public TorrentFileListner(Socket clientSocket) 
 	{
-		log.info("File transfer connection established at socket = " + clientSocket);
+		log.info("Torrent File transfer connection established at socket = " + clientSocket);
 		this.clientSocket = clientSocket;
 	}
 
@@ -35,34 +35,23 @@ public class TorrentFileListner extends Thread
 	{
 		try 
 		{
-			log.info("File transfer started at File receiver instance");
+			log.info("Torrent File transfer started at File receiver instance");
 			DataInputStream dataIpStream = new DataInputStream(clientSocket.getInputStream());
 			String fileNameWithType = dataIpStream.readUTF();
 			String keyWord[] = fileNameWithType.split(":");
-			String absoluteFilePath = null;
+			String absoluteFilePath = "/home/upadhyy3/bitTorrentUploadFolder/";
 			byte[] buffer = new byte[16*1024];
 			int bytesRead;
 			
 			// TODO *************************
-		    if(keyWord[1].equals("get"))
-				absoluteFilePath = Node.localFilePath+keyWord[0];
-			else
-				absoluteFilePath = Node.sdfsFilePath+keyWord[0]; 
+		    if(keyWord[1].equals("Torrent"))
+				absoluteFilePath = absoluteFilePath+keyWord[0]; 
 			
 			log.info("File saved is: "+absoluteFilePath);
             long fileSize = dataIpStream.readLong();
            
             File downloadedFile = new File(absoluteFilePath);
-            FileOutputStream fos = new FileOutputStream(downloadedFile); 
-            /*for(int i =0;i<fileSize;i++)
-            {          
-            	int index;
-            	while((index=dataIpStream.read())!=-1)
-            	{
-            		dos.write(index);
-            	}
-            }*/
-            
+            FileOutputStream fos = new FileOutputStream(downloadedFile);   
             while (fileSize > 0 && (bytesRead = dataIpStream.read(buffer, 0, (int) Math.min(buffer.length, fileSize))) != -1) {
             	fos.write(buffer, 0, bytesRead);
             	fileSize -= bytesRead;
@@ -76,7 +65,7 @@ public class TorrentFileListner extends Thread
 		catch (IOException e) 
 		{
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	 }
