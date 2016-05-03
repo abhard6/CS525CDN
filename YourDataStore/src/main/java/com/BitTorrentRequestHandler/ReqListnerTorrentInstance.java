@@ -72,9 +72,12 @@ public class ReqListnerTorrentInstance extends Thread {
 						Node._trackerServer.announceTorrentOnTracker(torrent);
 						
 						log.info("creating the initial seed for the file at the sever to be downloadable by other clients");
+						System.out.println("Just before Seeding the file");
+						sendTorrentFile(torrent.getName(), words[1]);
 						cs.initialSeed(InetAddress.getLocalHost(), torrent,
 								Node.torrentFilePath);
-						sendTorrentFile(torrent.getName(), words[1]);
+						System.out.println("Stuck in infinite loop");
+						
 					} else {
 						pw.println("NA");
 					}
@@ -102,7 +105,7 @@ public class ReqListnerTorrentInstance extends Thread {
 	}
 
 	public void sendTorrentFile(String fileName, String receiverIpAdress) {
-		String fullFilePath = Node.torrentFilePath + fileName;
+		String fullFilePath = Node.torrentFilePath + fileName + ".torrent";
 		try {
 			// logic to ping the master and get the list of ip's
 			Socket newSocket = new Socket(receiverIpAdress,
