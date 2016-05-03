@@ -41,7 +41,8 @@ public class ReqListnerTorrent extends Thread{
 			//Torrent request listner
 			while (!Node._reqListenerThreadStop) 
 			{
-				new TorrentFileListner(serverSocketListener.accept()).start();
+//				new TorrentFileListner(serverSocketListener.accept()).start();
+				new ReqListnerTorrentInstance(serverSocketListener.accept()).start();
 				log.info("Listening new Req");
 			}
 		}

@@ -32,6 +32,8 @@ import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
 
 import com.BitTorrentRequestHandler.ReqListnerTorrent;
+import com.BitTorrentRequestHandler.ReqSenderTorrent;
+import com.BitTorrentRequestHandler.TorrentFileListner;
 //import com.BitTorrentRequestHandler.ReqSenderTorrent;
 import com.dataStore.requestHandler.ReqListener;
 import com.dataStore.requestHandler.ReqSender;
@@ -63,8 +65,9 @@ public class Node
 	public final static int _gossipMemberListPort = 2000;
 	public final static int _TCPPortForElections = 3000;
 	public final static int _TCPPortForRequests = 3001;
-	public final static int _TCPPortForFileTransfers = 3002;
-	public final static int _TCPPorstForTorrentFileRquest = 4001;
+	public final static int _TCPPortForFileTransfers = 3002;	
+	public final static int _TCPPorstForTorrentRquest = 4001;
+	public final static int _TCPPorstForTorrentFileRquest = 4002;
 	public static String _introducerIp = "";
 	public static boolean _gossipListenerThreadStop = false;
 	public static boolean _fileListListenerThreadStop = false;
@@ -206,9 +209,12 @@ public class Node
 			fileReceiver.start();
 			
 			//open Req Listner for Torrent
-			Thread reqListenerTorrent = new ReqListnerTorrent(_TCPPorstForTorrentFileRquest);
+			Thread reqListenerTorrent = new ReqListnerTorrent(_TCPPorstForTorrentRquest);
 			reqListenerTorrent.start();
 			
+			//open File Listner for Torrent receiving torrent file
+			Thread fileListenerTorrent = new TorrentFileListner(_TCPPorstForTorrentFileRquest);
+			fileListenerTorrent.start();
 			// logic to send periodically
 			ScheduledExecutorService _schedulerService = Executors.newScheduledThreadPool(4);
 			_schedulerService.scheduleAtFixedRate(new GossipSenderThread(_gossipMemberListPort), 0, 500, unit);
@@ -258,7 +264,8 @@ public class Node
 						serverip = getLeadIp();
 						if(serverip != null)
 						{	
-							Thread reqInstance = new ReqSender(command[0], command[1], serverip, _TCPPortForRequests);
+//							Thread reqInstance = new ReqSender(command[0], command[1], serverip, _TCPPortForRequests);
+							Thread reqInstance = new ReqSenderTorrent(command[0], command[1], serverip, _TCPPorstForTorrentRquest);
 							reqInstance.start();
 						}
 						else
