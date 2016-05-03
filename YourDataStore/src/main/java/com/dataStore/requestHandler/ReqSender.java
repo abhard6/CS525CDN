@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,9 +60,23 @@ public class ReqSender extends Thread
 		BufferedReader serverReader = null;
 		Socket socket;
 		
-
-		
-		if(userCommand.equalsIgnoreCase("put"))
+		if(userCommand.equalsIgnoreCase("getTorrent")){
+			log.info("User command is : "+userCommand+" "+fileName);
+			try {
+				socket = new Socket(serverIp, serverPort);
+				serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				pw = new PrintWriter(socket.getOutputStream(), true);
+				pw.println(userCommand+":"+Node._machineIp+":"+fileName);
+				log.info("Message flushed to leader");
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+		else if(userCommand.equalsIgnoreCase("put"))
 		{
 			// get file
 			try 

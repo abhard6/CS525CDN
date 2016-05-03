@@ -32,7 +32,7 @@ import org.apache.log4j.PatternLayout;
 import org.apache.log4j.RollingFileAppender;
 
 import com.BitTorrentRequestHandler.ReqListnerTorrent;
-import com.BitTorrentRequestHandler.ReqSenderTorrent;
+//import com.BitTorrentRequestHandler.ReqSenderTorrent;
 import com.dataStore.requestHandler.ReqListener;
 import com.dataStore.requestHandler.ReqSender;
 import com.dataStore.scheduler.LeaderScanThread;
@@ -258,7 +258,7 @@ public class Node
 						serverip = getLeadIp();
 						if(serverip != null)
 						{	
-							Thread reqInstance = new ReqSenderTorrent(command[0], command[1], serverip, _TCPPortForRequests);
+							Thread reqInstance = new ReqSender(command[0], command[1], serverip, _TCPPortForRequests);
 							reqInstance.start();
 						}
 						else
