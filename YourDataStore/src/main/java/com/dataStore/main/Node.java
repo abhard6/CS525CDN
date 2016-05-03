@@ -258,7 +258,7 @@ public class Node
 						serverip = getLeadIp();
 						if(serverip != null)
 						{	
-							Thread reqInstance = new ReqSenderTorrent(command[0], command[1], serverip, _TCPPorstForTorrentFileRquest);
+							Thread reqInstance = new ReqSenderTorrent(command[0], command[1], serverip, _TCPPortForRequests);
 							reqInstance.start();
 						}
 						else

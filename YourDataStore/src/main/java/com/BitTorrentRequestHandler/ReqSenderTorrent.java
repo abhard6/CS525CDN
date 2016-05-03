@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
 
@@ -39,41 +40,57 @@ public class ReqSenderTorrent extends Thread{
 	public void run()
 	{
 		log.info("User command is : "+userCommand+" "+fileName);
-
-//		String fullFilePath = Node.localFilePath+fileName;
-		String fullFilePath = "/home/upadhyy3/bitTorrentTestFolder/"+fileName;
-		//BufferedReader bufRead = null;
-		try 
-		{
-			// logic to ping the master and get the list of ip's
+		try {
 			socket = new Socket(serverIp, serverPort);
-			//Data.O/p.Stream
-			File file = new File(fullFilePath);
-			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-			FileInputStream fis = new FileInputStream(file);
-			
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			byte[] mybytearray = new byte[(int) file.length()];
-			DataInputStream dis = new DataInputStream(bis);
-			dis.readFully(mybytearray, 0, mybytearray.length);
-			dos.writeUTF(fileName+"Torrent");
-			long fileSize = file.length();
-			dos.writeLong(fileSize);
-			
-			dos.write(mybytearray, 0, mybytearray.length);
-			dos.flush();
-            log.info("File transfered");
-            dis.close();
-            dos.close();
-			socket.close();
-
-		}
-		catch (IOException e) 
-		{
+			serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			pw = new PrintWriter(socket.getOutputStream(), true);
+			pw.println(userCommand+":"+Node._machineIp+":"+fileName);
+			log.info("Message flushed to leader");
+		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			log.error(e);
-			//e.printStackTrace();
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+
+
 	
 	}
 }
+
+
+////String fullFilePath = Node.localFilePath+fileName;
+//String fullFilePath = "/home/upadhyy3/bitTorrentTestFolder/"+fileName;
+////BufferedReader bufRead = null;
+//try 
+//{
+//// logic to ping the master and get the list of ip's
+//socket = new Socket(serverIp, serverPort);
+////Data.O/p.Stream
+//File file = new File(fullFilePath);
+//DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+//FileInputStream fis = new FileInputStream(file);
+//
+//BufferedInputStream bis = new BufferedInputStream(fis);
+//byte[] mybytearray = new byte[(int) file.length()];
+//DataInputStream dis = new DataInputStream(bis);
+//dis.readFully(mybytearray, 0, mybytearray.length);
+//dos.writeUTF(fileName+"Torrent");
+//long fileSize = file.length();
+//dos.writeLong(fileSize);
+//
+//dos.write(mybytearray, 0, mybytearray.length);
+//dos.flush();
+//log.info("File transfered");
+//dis.close();
+//dos.close();
+//socket.close();
+//
+//}
+//catch (IOException e) 
+//{
+//// TODO Auto-generated catch block
+//log.error(e);
+////e.printStackTrace();
+//}
