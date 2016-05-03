@@ -44,15 +44,36 @@ public class ReqSenderTorrent extends Thread{
 		PrintWriter pw = null;
 		BufferedReader serverReader = null;
 		Socket socket;
+		String returnStr = "";
 		
-		if(userCommand.equalsIgnoreCase("getTorrent")){
-			log.info("User command from inside the if condition : "+userCommand+" "+fileName);
+		if(userCommand.startsWith("getTorrent")){
+			log.info("Inside the if condition of request sender torrent"+userCommand+" "+fileName);
 			try {
 				socket = new Socket(serverIp, serverPort);
 				serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				pw = new PrintWriter(socket.getOutputStream(), true);
 				pw.println(userCommand+":"+Node._machineIp+":"+fileName);
 				log.info("Message flushed to leader");
+				
+				//check for potential deadlock as it waits for reply from the server if file exists
+				while ((returnStr = serverReader.readLine()) != null) 
+				{
+					log.info(" Thread Id Torrent request sender " + Thread.currentThread().getId()+ " : " + returnStr);
+					if(returnStr.equalsIgnoreCase("NA"))
+					{
+						log.info("File doesnot exist at server");
+						System.out.println("File Doesnot exist at the server");
+						break;
+					}
+					else if(returnStr.equalsIgnoreCase("ok")){
+						log.info("File on its way via other port");
+						System.out.println("File on its way via other port");
+						break;
+					}
+				}
+				pw.close();
+				serverReader.close();
+				socket.close();
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -64,38 +85,3 @@ public class ReqSenderTorrent extends Thread{
 	}
 }
 
-
-////String fullFilePath = Node.localFilePath+fileName;
-//String fullFilePath = "/home/upadhyy3/bitTorrentTestFolder/"+fileName;
-////BufferedReader bufRead = null;
-//try 
-//{
-//// logic to ping the master and get the list of ip's
-//socket = new Socket(serverIp, serverPort);
-////Data.O/p.Stream
-//File file = new File(fullFilePath);
-//DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-//FileInputStream fis = new FileInputStream(file);
-//
-//BufferedInputStream bis = new BufferedInputStream(fis);
-//byte[] mybytearray = new byte[(int) file.length()];
-//DataInputStream dis = new DataInputStream(bis);
-//dis.readFully(mybytearray, 0, mybytearray.length);
-//dos.writeUTF(fileName+"Torrent");
-//long fileSize = file.length();
-//dos.writeLong(fileSize);
-//
-//dos.write(mybytearray, 0, mybytearray.length);
-//dos.flush();
-//log.info("File transfered");
-//dis.close();
-//dos.close();
-//socket.close();
-//
-//}
-//catch (IOException e) 
-//{
-//// TODO Auto-generated catch block
-//log.error(e);
-////e.printStackTrace();
-//}

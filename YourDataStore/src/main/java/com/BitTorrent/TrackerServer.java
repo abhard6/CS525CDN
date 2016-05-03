@@ -15,7 +15,7 @@ public class TrackerServer {
 
 	Tracker tracker;
 
-	TrackerServer(String ip, int port) {
+	public TrackerServer(String ip, int port) {
 		try {
 			this.tracker = new Tracker(new InetSocketAddress(ip,
 					port));

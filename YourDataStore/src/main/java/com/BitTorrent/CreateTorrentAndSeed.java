@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 
+import com.dataStore.main.Node;
 import com.turn.ttorrent.client.Client;
 import com.turn.ttorrent.client.SharedTorrent;
 import com.turn.ttorrent.client.Client.ClientState;
@@ -26,7 +27,7 @@ public class CreateTorrentAndSeed {
 		Torrent torrent = Torrent.create(fileToBeShared, trackerToBeUsed
 				.getAnnounceUrl().toURI(), author);
 		FileOutputStream fos = new FileOutputStream(
-				"/home/upadhyy3/bitTorrentTestFolder/" + torrent.getName()
+				Node.torrentFilePath + torrent.getName()
 						+ ".torrent");
 		torrent.save(fos);
 		fos.close();
