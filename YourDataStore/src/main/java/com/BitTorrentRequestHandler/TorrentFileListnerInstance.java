@@ -39,7 +39,7 @@ public class TorrentFileListnerInstance extends Thread
 			DataInputStream dataIpStream = new DataInputStream(clientSocket.getInputStream());
 			String fileNameWithType = dataIpStream.readUTF();
 			String keyWord[] = fileNameWithType.split(":");
-			String absoluteFilePath = "/home/abhard6/local/";
+			String absoluteFilePath = "/home/abhard6/Desktop/local/";
 			byte[] buffer = new byte[16*1024];
 			int bytesRead;
 			

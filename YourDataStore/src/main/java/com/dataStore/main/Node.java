@@ -251,7 +251,7 @@ public class Node
 				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 				String userCmd = reader.readLine();
 				
-				if(userCmd.equalsIgnoreCase("getTorrent")){
+				if(userCmd.startsWith("getTorrent")){
 					String command[] = userCmd.split("\\s");
 					if(command.length != 2)
 					{

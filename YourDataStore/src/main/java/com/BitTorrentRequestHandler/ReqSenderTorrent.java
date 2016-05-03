@@ -46,7 +46,7 @@ public class ReqSenderTorrent extends Thread{
 		Socket socket;
 		
 		if(userCommand.equalsIgnoreCase("getTorrent")){
-			log.info("User command is : "+userCommand+" "+fileName);
+			log.info("User command from inside the if condition : "+userCommand+" "+fileName);
 			try {
 				socket = new Socket(serverIp, serverPort);
 				serverReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
