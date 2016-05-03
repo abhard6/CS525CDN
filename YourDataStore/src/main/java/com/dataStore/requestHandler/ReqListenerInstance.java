@@ -84,7 +84,7 @@ public class ReqListenerInstance extends Thread
 				byte[] mybytearray = new byte[(int) file.length()];
 				DataInputStream dis = new DataInputStream(bis);
 				dis.readFully(mybytearray, 0, mybytearray.length);
-				dos.writeUTF(arr[2]+"Torrent");
+				dos.writeUTF(arr[2]+":"+"Torrent");
 				long fileSize = file.length();
 				dos.writeLong(fileSize);
 				
