@@ -35,8 +35,12 @@ public class TorrentSeeder extends Thread{
 			 Node.torrentFilePath);
 			}
 			else{
+				//Path Problem at client side(parent directory path should be same at every client)
+//				seeder.initialSeed(InetAddress.getLocalHost(), this.filetorrent,
+//						 Node.torrentFilePath);
+				
 				seeder.initialSeed(InetAddress.getLocalHost(), this.filetorrent,
-						 Node.torrentFilePath);
+						"/home/abhard6/Desktop/local/");
 			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
