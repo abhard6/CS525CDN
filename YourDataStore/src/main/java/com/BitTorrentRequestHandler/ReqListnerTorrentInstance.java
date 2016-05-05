@@ -29,6 +29,7 @@ public class ReqListnerTorrentInstance extends Thread {
 
 	private static Logger log = Logger.getLogger(ReqListenerInstance.class);
 	private Socket clientSocket = null;
+	private static final String _extension = ".torrent";
 
 	public ReqListnerTorrentInstance(Socket clientSocket) {
 		log.info("Connection established at socket = " + clientSocket);
@@ -56,7 +57,7 @@ public class ReqListnerTorrentInstance extends Thread {
 				// file map
 				if (Node._fileMap.containsKey(words[2])) {
 					pw.println("ok");
-					sendTorrentFile(words[2], words[1]);
+					sendTorrentFile(words[2]+_extension, words[1]);
 				} else {
 					// Comes in else condition when there is not torrent file
 					// and creates new file and send that file
@@ -68,16 +69,17 @@ public class ReqListnerTorrentInstance extends Thread {
 						Torrent torrent = cs.createTorrentFromSingleFile(
 								fileFromLocalDirectory,
 								Node._trackerServer.getTracker(), "shivam");
-						log.info("Torrent created at Folder {0} and name is {1}"+Node.torrentFilePath+torrent.getName());
+						log.info("Torrent created at Folder {0} and name is {1}"
+								+ Node.torrentFilePath + torrent.getName());
 						Node._trackerServer.announceTorrentOnTracker(torrent);
-						
+
 						log.info("creating the initial seed for the file at the sever to be downloadable by other clients");
 						System.out.println("Just before Seeding the file");
-						sendTorrentFile(torrent.getName(), words[1]);
-						cs.initialSeed(InetAddress.getLocalHost(), torrent,
-								Node.torrentFilePath);
+						sendTorrentFile(torrent.getName()+_extension, words[1]);
+						// cs.initialSeed(InetAddress.getLocalHost(), torrent,
+						// Node.torrentFilePath);
 						System.out.println("Stuck in infinite loop");
-						
+
 					} else {
 						pw.println("NA");
 					}
@@ -105,13 +107,16 @@ public class ReqListnerTorrentInstance extends Thread {
 	}
 
 	public void sendTorrentFile(String fileName, String receiverIpAdress) {
-		String fullFilePath = Node.torrentFilePath + fileName + ".torrent";
+		String fullFilePath = Node.torrentFilePath + fileName;
 		try {
 			// logic to ping the master and get the list of ip's
+			log.info("Full File Path name befor sending the file is"
+					+ fullFilePath);
 			Socket newSocket = new Socket(receiverIpAdress,
 					Node._TCPPorstForTorrentFileRquest);
 			// Data.O/p.Stream
-			File file = new File(fullFilePath);
+			 File file = new File(fullFilePath);
+			System.out.println(file.getName() + file.getAbsolutePath());
 			DataOutputStream dos = new DataOutputStream(
 					newSocket.getOutputStream());
 			FileInputStream fis = new FileInputStream(file);
@@ -120,7 +125,7 @@ public class ReqListnerTorrentInstance extends Thread {
 			byte[] mybytearray = new byte[(int) file.length()];
 			DataInputStream dis = new DataInputStream(bis);
 			dis.readFully(mybytearray, 0, mybytearray.length);
-			dos.writeUTF(fileName + ":" + "Torrent");
+			dos.writeUTF(fileName+ ":" + "Torrent");
 			long fileSize = file.length();
 			dos.writeLong(fileSize);
 
@@ -138,10 +143,11 @@ public class ReqListnerTorrentInstance extends Thread {
 			// e.printStackTrace();
 		}
 	}
+
 	/*
 	 * Creates file from the local folder and returns the file object
 	 */
-	
+
 	public File checkFileInDirectory(String fileName) {
 		return new File(Node.localFilePath + fileName);
 	}
