@@ -23,10 +23,10 @@ public class MainApplication {
 		String destinationDirectory = "/home/upadhyy3/bitTorrentTestFolder";
 
 		try {
-			TrackerServer ts = new TrackerServer("130.126.28.17", 6969);
+			TrackerServer ts = new TrackerServer("130.126.28.27", 6969);
 			CreateTorrentAndSeed cs = new CreateTorrentAndSeed();
 			ts.startTracker();
-
+			System.out.println("Tracker running.");
 			/*
 			 * Torrent can be saved in memory to keep track of current runnig
 			 * torrents

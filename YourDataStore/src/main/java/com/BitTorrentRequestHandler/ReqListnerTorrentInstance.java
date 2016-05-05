@@ -71,13 +71,13 @@ public class ReqListnerTorrentInstance extends Thread {
 								Node._trackerServer.getTracker(), "shivam");
 						log.info("Torrent created at Folder {0} and name is {1}"
 								+ Node.torrentFilePath + torrent.getName());
-						Node._trackerServer.announceTorrentOnTracker(torrent);
-
 						log.info("creating the initial seed for the file at the sever to be downloadable by other clients");
 						System.out.println("Just before Seeding the file");
 						sendTorrentFile(torrent.getName()+_extension, words[1]);
-						// cs.initialSeed(InetAddress.getLocalHost(), torrent,
-						// Node.torrentFilePath);
+						
+						Node._trackerServer.announceTorrentOnTracker(torrent);
+						 cs.initialSeed(InetAddress.getLocalHost(), torrent,
+						 Node.torrentFilePath);
 						System.out.println("Stuck in infinite loop");
 
 					} else {

@@ -200,7 +200,7 @@ public class Node {
 						_machineIp, _bitTorrentPort);
 				_logger.info("Created tracker server on the server to announce torrent");
 				_trackerServer.startTracker();
-				_logger.info("Started Tracker Server on url"+ _trackerServer.getTracker().getAnnounceUrl());
+				_logger.info("Started Tracker Server on url"+ _trackerServer.getTracker().getAnnounceUrl().getHost().toString());
 			}
 			Thread fileListener = new FileListListenerThread(
 					_gossipFileListPort);
