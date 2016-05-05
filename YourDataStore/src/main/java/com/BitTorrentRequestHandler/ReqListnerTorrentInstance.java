@@ -57,7 +57,7 @@ public class ReqListnerTorrentInstance extends Thread {
 				// file map
 				if (Node._fileMap.containsKey(words[2])) {
 					pw.println("ok");
-					sendTorrentFile(words[2]+_extension, words[1]);
+					sendTorrentFile(words[2] + _extension, words[1]);
 				} else {
 					// Comes in else condition when there is not torrent file
 					// and creates new file and send that file
@@ -73,12 +73,23 @@ public class ReqListnerTorrentInstance extends Thread {
 								+ Node.torrentFilePath + torrent.getName());
 						log.info("creating the initial seed for the file at the sever to be downloadable by other clients");
 						System.out.println("Just before Seeding the file");
-						sendTorrentFile(torrent.getName()+_extension, words[1]);
-						
+						sendTorrentFile(torrent.getName() + _extension,
+								words[1]);
+
 						Node._trackerServer.announceTorrentOnTracker(torrent);
-						 cs.initialSeed(InetAddress.getLocalHost(), torrent,
-						 Node.torrentFilePath);
-						System.out.println("Stuck in infinite loop");
+						log.info("Announced torrent"
+								+ torrent.getName()
+								+ "on url"
+								+ Node._trackerServer.getTracker()
+										.getAnnounceUrl());
+						// start seeding
+						Thread torrentSeeder = new TorrentSeeder(torrent, cs);
+						torrentSeeder.start();
+						log.info("Started seeding torrent" + torrent.getName()
+								+ "on thread" + torrentSeeder.getId());
+						// cs.initialSeed(InetAddress.getLocalHost(), torrent,
+						// Node.torrentFilePath);
+						System.out.println("Started seeding");
 
 					} else {
 						pw.println("NA");
@@ -115,7 +126,7 @@ public class ReqListnerTorrentInstance extends Thread {
 			Socket newSocket = new Socket(receiverIpAdress,
 					Node._TCPPorstForTorrentFileRquest);
 			// Data.O/p.Stream
-			 File file = new File(fullFilePath);
+			File file = new File(fullFilePath);
 			System.out.println(file.getName() + file.getAbsolutePath());
 			DataOutputStream dos = new DataOutputStream(
 					newSocket.getOutputStream());
@@ -125,7 +136,7 @@ public class ReqListnerTorrentInstance extends Thread {
 			byte[] mybytearray = new byte[(int) file.length()];
 			DataInputStream dis = new DataInputStream(bis);
 			dis.readFully(mybytearray, 0, mybytearray.length);
-			dos.writeUTF(fileName+ ":" + "Torrent");
+			dos.writeUTF(fileName + ":" + "Torrent");
 			long fileSize = file.length();
 			dos.writeLong(fileSize);
 
