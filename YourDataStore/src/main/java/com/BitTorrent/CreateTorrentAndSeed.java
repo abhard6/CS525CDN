@@ -57,4 +57,28 @@ public class CreateTorrentAndSeed {
 			}
 		}
 	}
+	
+	/*
+	 * over loaded method for creating and seeding the torrent
+	 */
+	
+	public void initialSeed(InetAddress address, File torrent,
+			String destinationDirectory) throws UnknownHostException,
+			FileNotFoundException, NoSuchAlgorithmException, IOException {
+		SharedTorrent sharedTorrent = SharedTorrent
+				.fromFile(torrent, new File(destinationDirectory));
+		Client seeder = new Client(address,sharedTorrent);
+		seeder.share();
+		while (!ClientState.SEEDING.equals(seeder.getState())) {
+			// Check if there's an error
+			if (ClientState.ERROR.equals(seeder.getState())) {
+				try {
+					throw new Exception("ttorrent client Error State");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
