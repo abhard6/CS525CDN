@@ -61,6 +61,9 @@ public class TorrentFileListnerInstance extends Thread
             clientSocket.close();
             log.info("File received. Socket connection instance closed");
             
+            //Torrent Downloader
+            
+            
 		}
 		catch (IOException e) 
 		{
