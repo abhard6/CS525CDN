@@ -45,7 +45,7 @@ public class ReqListnerTorrentInstance extends Thread {
 					clientSocket.getOutputStream());
 			PrintWriter pw = new PrintWriter(clientSocket.getOutputStream(),
 					true);
-
+			long startTime = System.currentTimeMillis();
 			clientCommand = reader.readLine();
 			log.info("Client fired -->" + clientCommand);
 			System.out.println("Client fired -->" + clientCommand);
@@ -61,6 +61,7 @@ public class ReqListnerTorrentInstance extends Thread {
 				} else {
 					// Comes in else condition when there is not torrent file
 					// and creates new file and send that file
+					
 					File fileFromLocalDirectory = checkFileInDirectory(words[2]);
 					if (fileFromLocalDirectory.exists()) {
 						// create torrent and send it across
@@ -99,6 +100,9 @@ public class ReqListnerTorrentInstance extends Thread {
 			reader.close();
 			writer.close();
 			pw.close();
+			
+			long elapsedTime = System.currentTimeMillis() - startTime;
+			log.info("Time taken for creating a torrent is" + elapsedTime);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			log.error(e);

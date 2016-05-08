@@ -49,7 +49,7 @@ public class TorrentFileListnerInstance extends Thread {
 
 			log.info("File saved is: " + absoluteFilePath);
 			long fileSize = dataIpStream.readLong();
-
+			long startTime = System.currentTimeMillis();
 			File downloadedFile = new File(absoluteFilePath);
 			FileOutputStream fos = new FileOutputStream(downloadedFile);
 			while (fileSize > 0
@@ -63,8 +63,12 @@ public class TorrentFileListnerInstance extends Thread {
 			clientSocket.close();
 			log.info("File received. Socket connection instance closed");
 
+			long elapsedTime = System.currentTimeMillis() - startTime;
+			log.info("Time taken for downloading a file receiving torrent is" + elapsedTime);
+			
 			// Torrent Downloader
 
+			
 			log.info("Class of downloaded torrent is"
 					+ downloadedFile.getClass());
 			log.info("size of torrent file received is"
