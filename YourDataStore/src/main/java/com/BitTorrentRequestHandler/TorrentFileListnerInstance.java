@@ -63,8 +63,7 @@ public class TorrentFileListnerInstance extends Thread {
 			clientSocket.close();
 			log.info("File received. Socket connection instance closed");
 
-			long elapsedTime = System.currentTimeMillis() - startTime;
-			log.info("Time taken for downloading a file receiving torrent is" + elapsedTime);
+
 			
 			// Torrent Downloader
 
@@ -78,7 +77,8 @@ public class TorrentFileListnerInstance extends Thread {
 			torrentSeeder.start();
 			log.info("Downloaded Torrent and started seeding at thread"
 					+ torrentSeeder.getId());
-
+			long elapsedTime = System.currentTimeMillis() - startTime;
+			log.info("Time taken for downloading a file receiving torrent is" + elapsedTime);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
